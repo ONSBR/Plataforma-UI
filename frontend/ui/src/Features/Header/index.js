@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Icon from '@material-ui/core/Icon';
+import PlatformService from '../../Services/api/platform'
+import { withRouter } from 'react-router-dom'
+import Menu from './components/menu'
 
 const styles = {
   root: {
@@ -26,32 +29,53 @@ class  Header extends React.Component {
 
     constructor(props) {
         super(props)
+        this.platformService = new PlatformService()
+        this.menu = React.createRef();
         this.state = {
+            menuOpen:false,
             isLocked:false,
             hasNotifications:false,
             hasReprocessing:false,
+            systemId: props.systemId,
         }
+        this.toggleMenu  = this.toggleMenu.bind(this)
     }
 
     componentDidMount(){
-
+        this.intervalId = setInterval(()=>{
+            this.platformService.isLocked(this.state.systemId).then(({data}) => {
+                if (data.locked) {
+                    this.setState(s => s.isLocked = data.locked)
+                }
+            })
+        },5000)
     }
 
+    componentWillUnmount(){
+        clearInterval(this.intervalId)
+    }
+
+    toggleMenu(){
+        this.setState(state => ({
+            menuOpen: !state.menuOpen
+          }));
+    }
     render(){
         const { classes } = this.props;
+        var self = this;
         return (
             <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar variant="dense">
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={() => this.toggleMenu()}>
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="title" color="inherit" className={classes.flex}>
                     Plataforma
                 </Typography>
                 <div>
-                    <IconButton color="inherit" aria-label="lock">
-                        <Icon>lock_open</Icon>
+                    <IconButton color={this.props.isLocked ? "error":"inherit"} aria-label="lock">
+                        <Icon>{this.props.isLocked ? "lock":"lock_open"}</Icon>
                     </IconButton>
                     <IconButton color="inherit" aria-label="notifications">
                         <Icon>notifications</Icon>
@@ -62,6 +86,7 @@ class  Header extends React.Component {
                 </div>
                 </Toolbar>
             </AppBar>
+            <Menu open={this.state.menuOpen} toggleDrawer={()=> this.toggleMenu()}/>
             </div>
         );
     }
@@ -71,4 +96,4 @@ Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+export default withRouter(withStyles(styles)(Header));
