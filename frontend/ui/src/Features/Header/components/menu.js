@@ -30,13 +30,13 @@ class Menu extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List>
-            <ListItem onClick={()=> this.props.history.push("/")}>Sair</ListItem>
             <ListItem>Instâncias</ListItem>
             <ListItem>Memória de Cálculo</ListItem>
             <ListItem>Reprocessamento</ListItem>
             <ListItem>Dashboard</ListItem>
             <ListItem>Emitir Evento</ListItem>
             <ListItem>Aplicações</ListItem>
+            <ListItem onClick={()=> this.props.history.push("/")}>Sair</ListItem>
         </List>
       </div>
     );
