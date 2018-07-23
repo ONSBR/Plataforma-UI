@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { withRouter } from 'react-router-dom'
 
 const styles = {
   list: {
     width: 250,
+    cursor: 'pointer',
   },
   fullList: {
     width: 'auto',
@@ -29,6 +30,7 @@ class Menu extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List>
+            <ListItem onClick={()=> this.props.history.push("/")}>Sair</ListItem>
             <ListItem>Instâncias</ListItem>
             <ListItem>Memória de Cálculo</ListItem>
             <ListItem>Reprocessamento</ListItem>
@@ -59,4 +61,4 @@ Menu.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Menu);
+export default withRouter(withStyles(styles)(Menu));
