@@ -12,7 +12,7 @@ func InitAPI() {
 
 	// Routes
 	//g := e.Group("v1.0.0")
-
+	e.Static("/", "./build")
 	// Start server
 	e.Logger.Fatal(e.Start(":8384"))
 }
