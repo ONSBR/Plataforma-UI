@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ReprocessingList from './components/reprocessingList';
 
-
 const styles = theme => ({
     root: {
       width: '100%',
@@ -19,9 +18,15 @@ class ReprocessingView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            status:"all"
+            status:""
         }
+        this.onDetailHandler = this.onDetailHandler.bind(this)
     }
+
+    onDetailHandler(reprocessing) {
+        console.log(reprocessing)
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -29,7 +34,7 @@ class ReprocessingView extends React.Component {
             <Header systemId={this.props.systemId} />
             <div className={classes.root}>
                 <div className="col">
-                    <ReprocessingList systemId={this.props.match.params.id}/>
+                    <ReprocessingList systemId={this.props.match.params.id} status={this.state.status} onDetailHandler={(rep)=>this.onDetailHandler(rep)}/>
                 </div>
                 <div className="col">
                     <Paper>
