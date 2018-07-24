@@ -9,6 +9,10 @@ class ProcessService extends ApiService {
     findInstancesBySystem(systemId, page, pageSize){
         return Axios.get(this.url("process/instances",{"systemId":systemId, "page":page, "pageSize":pageSize}))
     }
+
+    getHistory(instanceId) {
+        return Axios.get(this.url("process/history",{"instanceId":instanceId}))
+    }
 }
 
 export default ProcessService

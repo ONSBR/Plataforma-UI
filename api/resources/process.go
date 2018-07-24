@@ -22,3 +22,12 @@ func FindallProcessInstance(c echo.Context) error {
 	}
 	return c.JSON(200, instances)
 }
+
+func GetInstanceHistory(c echo.Context) error {
+	service := services.NewProcessService()
+	memory, err := service.GetProcessMemory(c.QueryParam("instanceId"))
+	if err != nil {
+		return err
+	}
+	return c.JSON(200, memory)
+}

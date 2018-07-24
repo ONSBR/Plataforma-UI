@@ -19,6 +19,7 @@ func InitAPI() {
 	g.GET("/system", resources.FindAllSystem)
 	g.GET("/platform/islocked", resources.PlatformIsLocked)
 	g.GET("/process/instances", resources.FindallProcessInstance)
+	g.GET("/process/history", resources.GetInstanceHistory)
 	// Start server
 	e.Logger.Fatal(e.Start(":8384"))
 }
