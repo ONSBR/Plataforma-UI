@@ -24,7 +24,8 @@ class ProcessInstanceView extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            memories:[]
+            memories:[],
+            instanceSelected:{}
         }
         this.service = new ProcessService()
         this.handleOnClickInstance = this.handleOnClickInstance.bind(this)
@@ -34,24 +35,19 @@ class ProcessInstanceView extends React.Component {
         this.service.getHistory(instance.id).then(({data})=>{
             var memories = data.map(this.transformMemoryToTable)
             var final = []
-            var biggerColumns = 0;
-            memories.forEach(m => {
-                if (m.biggerColumn > biggerColumns) {
-                    biggerColumns = m.biggerColumn
+            final = memories.map(mem => {
+                var blankColumns = []
+                var i = 0;
+                while (i < mem.biggerColumn) {
+                    blankColumns.push("")
+                    i++
                 }
-                final.push(...(m.table))
+                mem.table.unshift(blankColumns)
+                return mem.table
             })
-            console.log(biggerColumns)
-            var blankColumns = []
-            var i = 0;
-            while (i < biggerColumns) {
-                blankColumns.push("")
-                i++
-            }
-            final.unshift(blankColumns)
-            console.log(final)
             this.setState(s => {
                 s.memories = final
+                s.instanceSelected = instance
                 return s
             })
         })
@@ -62,7 +58,7 @@ class ProcessInstanceView extends React.Component {
         var header = []
         var body = []
         var table = [];
-        var biggerColumn = 0;
+        var biggerColumn = 1;
         if (!memory.dataset){
             //primeira memoria
             header.push("Evento")
@@ -77,6 +73,7 @@ class ProcessInstanceView extends React.Component {
         }else{
             Object.keys(memory.dataset.entities).forEach(entity => {
                 var header = []
+                table.push([""])
                 table.push([entity])
                 if (memory.dataset.entities[entity].length === 0) {
                     return table;
@@ -103,7 +100,7 @@ class ProcessInstanceView extends React.Component {
                     table.push(body)
                 })
             })
-            table.push([""])
+
         }
         table.push([""])
         return {table,biggerColumn}
@@ -122,6 +119,11 @@ class ProcessInstanceView extends React.Component {
                     <Paper className="memory">
                     <Typography variant="headline" component="h4">
                         &nbsp;Memória
+                    </Typography>
+                    <Typography component="div" style={{ padding: 2 * 3 }}>
+                        &nbsp;Nome do evento: {this.state.instanceSelected.origin_event_name}<br/>
+                        &nbsp;ID da instância: {this.state.instanceSelected.id}<br/>
+                        &nbsp;Status: <span className={this.state.instanceSelected.status} >{this.state.instanceSelected.status}</span>
                     </Typography>
                     <MemoryList memories={this.state.memories}/>
                     </Paper>
