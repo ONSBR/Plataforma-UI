@@ -31,7 +31,7 @@ class Menu extends React.Component {
       <div className={classes.list}>
         <List>
             <ListItem onClick={()=> this.props.history.push("/process/"+this.props.systemId)}>Instâncias</ListItem>
-            <ListItem>Memória de Cálculo</ListItem>
+            <ListItem>Reprodução</ListItem>
             <ListItem>Reprocessamento</ListItem>
             <ListItem>Dashboard</ListItem>
             <ListItem>Emitir Evento</ListItem>
