@@ -21,7 +21,7 @@ const styles = theme => ({
     },
     eventsContainer:{
         maxHeight:450,
-        overflowY:'scroll',
+        overflowY:'auto',
         display:'flex',
         width:'100%'
     },
@@ -62,7 +62,7 @@ class ReprocessingDetail extends React.Component {
                 </div>
                 <div className="col">
                     Parãmetros: <br/>
-                    {this.renderObject(this.props.reprocessing.origin.payload)}
+                    {this.renderObject(event.payload)}
                     </div>
                 </div>
             </Typography>

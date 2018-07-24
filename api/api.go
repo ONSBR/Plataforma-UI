@@ -21,6 +21,8 @@ func InitAPI() {
 	g.GET("/process/instances", resources.FindallProcessInstance)
 	g.GET("/process/history", resources.GetInstanceHistory)
 	g.GET("/reprocessing/findall", resources.FindallReprocessing)
+	g.POST("/reprocessing/approve", resources.ApproveReprocessing)
+	g.POST("/reprocessing/skip", resources.SkipReprocessing)
 	// Start server
 	e.Logger.Fatal(e.Start(":8384"))
 }

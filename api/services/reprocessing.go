@@ -1,6 +1,7 @@
 package services
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/ONSBR/Plataforma-EventManager/infra"
@@ -21,6 +22,34 @@ func (rep *ReprocessingService) Findall(systemID, status string) ([]map[string]i
 	url := fmt.Sprintf("%s/reprocessing/%s/find?status=%s", rep.getURL(), systemID, status)
 	result := make([]map[string]interface{}, 0)
 	err := http.GetJSON(url, &result)
+	return result, err
+}
+
+func (rep *ReprocessingService) Approve(reprocessingID, approver string) (map[string]interface{}, error) {
+	url := fmt.Sprintf("%s/reprocessing/%s/approve", rep.getURL(), reprocessingID)
+	result := make(map[string]interface{})
+	resp, err := http.Post(url, map[string]interface{}{"user": approver})
+	if resp.Status != 200 {
+		return nil, fmt.Errorf(string(resp.Body))
+	}
+	err = json.Unmarshal(resp.Body, &result)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
+}
+
+func (rep *ReprocessingService) Skip(reprocessingID, approver string) (map[string]interface{}, error) {
+	url := fmt.Sprintf("%s/reprocessing/%s/skip", rep.getURL(), reprocessingID)
+	result := make(map[string]interface{})
+	resp, err := http.Post(url, map[string]interface{}{"user": approver})
+	if resp.Status != 200 {
+		return nil, fmt.Errorf(string(resp.Body))
+	}
+	err = json.Unmarshal(resp.Body, &result)
+	if err != nil {
+		return nil, err
+	}
 	return result, err
 }
 

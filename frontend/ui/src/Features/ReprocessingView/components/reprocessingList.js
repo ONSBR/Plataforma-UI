@@ -26,6 +26,17 @@ class ReprocessingList extends React.Component {
     }
 
     componentDidMount(){
+        this.fetch()
+        this.intervalId = setInterval(()=>{
+           this.fetch()
+        },5000)
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.intervalId)
+    }
+
+    fetch(){
         this.service.findAll(this.props.systemId,this.props.status).then(({data})=>{
             this.setState(s => {
                 s.reprocessing = data
@@ -33,11 +44,14 @@ class ReprocessingList extends React.Component {
             })
         })
     }
-    renderApproveButton(rep) {
+
+    renderActionButton(rep,action) {
         return (rep.status === 'pending_approval' ?
-        <TableCell><Icon className="clickable" onClick={()=> this.props.onApproveHandler(rep)}>check</Icon></TableCell>
+        <TableCell><Icon className="clickable" onClick={()=> this.props.onActionHandler(rep,action)}>{action}</Icon></TableCell>
         : <TableCell></TableCell>)
     }
+
+
     render(){
         const { classes } = this.props;
         return (
@@ -52,7 +66,8 @@ class ReprocessingList extends React.Component {
                     <TableCell>Evento Origem</TableCell>
                     <TableCell>Status</TableCell>
                     <TableCell>Expandir</TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>Aprovar</TableCell>
+                    <TableCell>Abortar</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -62,7 +77,8 @@ class ReprocessingList extends React.Component {
                         <TableCell>{rep.origin.name} - {rep.origin.scope} </TableCell>
                         <TableCell>{rep.status}</TableCell>
                         <TableCell><Icon className="clickable" onClick={()=> this.props.onDetailHandler(rep)}>details</Icon></TableCell>
-                        {this.renderApproveButton(rep)}
+                        {this.renderActionButton(rep,'check')}
+                        {this.renderActionButton(rep,'not_interested')}
                     </TableRow>
                     );
                 })}

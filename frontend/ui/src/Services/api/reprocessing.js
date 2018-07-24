@@ -8,11 +8,18 @@ class ReprocessingService extends ApiService {
 
     findAll(systemId, status){
         if (status){
-            return Axios.get(this.url("reprocessing/findall",{"systemId":systemId, "status":status}))
+            return Axios.get(this.url("reprocessing/findall",{ systemId, status}))
         }else{
-            return Axios.get(this.url("reprocessing/findall",{"systemId":systemId}))
+            return Axios.get(this.url("reprocessing/findall",{systemId}))
         }
+    }
 
+    approve(reprocessingId, approver){
+        return Axios.post(this.url("reprocessing/approve",{reprocessingId,approver}))
+    }
+
+    skip(reprocessingId, approver){
+        return Axios.post(this.url("reprocessing/skip",{reprocessingId,approver}))
     }
 
 }
