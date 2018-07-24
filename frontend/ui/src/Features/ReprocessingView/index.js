@@ -33,7 +33,6 @@ class ReprocessingView extends React.Component {
     }
 
     onDetailHandler(reprocessing) {
-        console.log(reprocessing)
         this.setState(s => {
             s.reprocessing = reprocessing
             return s
@@ -44,7 +43,7 @@ class ReprocessingView extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-            <Header systemId={this.props.systemId} />
+            <Header systemId={this.props.match.params.id} />
             <div className={classes.root}>
                 <div className="col">
                     <ReprocessingList systemId={this.props.match.params.id} status={this.state.status} onDetailHandler={(rep)=>this.onDetailHandler(rep)}/>

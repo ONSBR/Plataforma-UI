@@ -110,7 +110,7 @@ class ProcessInstanceView extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-            <Header systemId={this.props.systemId} />
+            <Header systemId={this.props.match.params.id} />
             <div className={classes.root}>
                 <div className="col">
                     <ProcessInstanceList systemId={this.props.match.params.id} onClickHandler={(instance)=> this.handleOnClickInstance(instance) }/>

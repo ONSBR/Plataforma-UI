@@ -36,6 +36,7 @@ class  Header extends React.Component {
             isLocked:false,
             hasNotifications:false,
             hasReprocessing:false,
+            systemId:this.props.systemId,
         }
         this.toggleMenu  = this.toggleMenu.bind(this)
     }
@@ -44,7 +45,10 @@ class  Header extends React.Component {
         this.intervalId = setInterval(()=>{
             this.platformService.isLocked(this.state.systemId).then(({data}) => {
                 if (data.locked) {
-                    this.setState(s => s.isLocked = data.locked)
+                    this.setState(s => {
+                        s.isLocked = data.locked
+                        return s
+                    })
                 }
             })
         },5000)
@@ -55,9 +59,10 @@ class  Header extends React.Component {
     }
 
     toggleMenu(){
-        this.setState(state => ({
-            menuOpen: !state.menuOpen
-          }));
+        this.setState(state => {
+            state.menuOpen = !state.menuOpen
+            return state
+        })
     }
     render(){
         const { classes } = this.props;
@@ -85,7 +90,7 @@ class  Header extends React.Component {
                 </div>
                 </Toolbar>
             </AppBar>
-            <Menu open={this.state.menuOpen} systemId={this.props.systemId} toggleDrawer={()=> this.toggleMenu()}/>
+            <Menu open={this.state.menuOpen} systemId={this.state.systemId} toggleDrawer={()=> this.toggleMenu()}/>
             </div>
         );
     }
