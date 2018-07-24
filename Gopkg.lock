@@ -12,6 +12,16 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/ONSBR/Plataforma-EventManager"
+  packages = [
+    "domain",
+    "infra",
+    "sdk"
+  ]
+  revision = "4661d29b56aab2180fd29e257598cb87cb05ed66"
+
+[[projects]]
+  branch = "master"
   name = "github.com/PMoneda/http"
   packages = ["."]
   revision = "07abd5e307d947064debbb4f0e945a2aa4087774"
@@ -21,6 +31,12 @@
   packages = ["."]
   revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
   version = "v3.2.0"
+
+[[projects]]
+  name = "github.com/google/uuid"
+  packages = ["."]
+  revision = "064e2069ce9c359c118179501254f67d7d37ba24"
+  version = "0.2"
 
 [[projects]]
   name = "github.com/labstack/echo"
@@ -55,6 +71,12 @@
   version = "v0.0.3"
 
 [[projects]]
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
+  version = "v1.0.6"
+
+[[projects]]
   branch = "master"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
@@ -71,19 +93,23 @@
   name = "golang.org/x/crypto"
   packages = [
     "acme",
-    "acme/autocert"
+    "acme/autocert",
+    "ssh/terminal"
   ]
   revision = "a2144134853fc9a27a7b1e3eb4f19f1a76df13c9"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
-  packages = ["unix"]
+  packages = [
+    "unix",
+    "windows"
+  ]
   revision = "ac767d655b305d4e9612f5f6e33120b9176c4ad4"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "4b0189db33378e242559fb41aee26124f988e28896a8e7b7dea575c64db42ba1"
+  inputs-digest = "4757bba2a96d0c74a5a4790ea07e7e9b44b84ae58cfb613fa36969ea09299d5a"
   solver-name = "gps-cdcl"
   solver-version = 1

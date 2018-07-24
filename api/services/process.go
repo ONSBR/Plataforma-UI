@@ -2,6 +2,7 @@ package services
 
 import (
 	"github.com/ONSBR/Plataforma-Deployer/sdk/apicore"
+	"github.com/ONSBR/Plataforma-EventManager/sdk"
 )
 
 type ProcessInstance struct {
@@ -40,9 +41,9 @@ func (proc *ProcessService) GetProcessInstance(systemID string, page, pageSize i
 	return result, nil
 }
 
-type Memory map[string]interface{}
-
-func (proc *ProcessService) GetProcessMemory(instanceID string)
+func (proc *ProcessService) GetProcessMemory(instanceID string) ([]sdk.Memory, error) {
+	return sdk.GetMemoryHistory(instanceID)
+}
 
 func NewProcessService() *ProcessService {
 	return new(ProcessService)

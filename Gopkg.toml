@@ -40,3 +40,7 @@
 [[constraint]]
   branch = "master"
   name = "github.com/ONSBR/Plataforma-Deployer"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/ONSBR/Plataforma-EventManager"
