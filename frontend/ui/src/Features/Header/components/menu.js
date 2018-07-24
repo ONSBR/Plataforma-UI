@@ -30,7 +30,7 @@ class Menu extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List>
-            <ListItem>Instâncias</ListItem>
+            <ListItem onClick={()=> this.props.history.push("/process/"+this.props.systemId)}>Instâncias</ListItem>
             <ListItem>Memória de Cálculo</ListItem>
             <ListItem>Reprocessamento</ListItem>
             <ListItem>Dashboard</ListItem>

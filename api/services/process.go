@@ -5,6 +5,7 @@ import (
 )
 
 type ProcessInstance struct {
+	ID             string `json:"id"`
 	ProcessID      string `json:"processId"`
 	SystemID       string `json:"systemId"`
 	StartExecution string `json:"startExecution"`
@@ -38,6 +39,10 @@ func (proc *ProcessService) GetProcessInstance(systemID string, page, pageSize i
 	}
 	return result, nil
 }
+
+type Memory map[string]interface{}
+
+func (proc *ProcessService) GetProcessMemory(instanceID string)
 
 func NewProcessService() *ProcessService {
 	return new(ProcessService)

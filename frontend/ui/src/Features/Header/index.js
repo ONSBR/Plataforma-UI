@@ -36,7 +36,6 @@ class  Header extends React.Component {
             isLocked:false,
             hasNotifications:false,
             hasReprocessing:false,
-            systemId: props.systemId,
         }
         this.toggleMenu  = this.toggleMenu.bind(this)
     }
@@ -86,7 +85,7 @@ class  Header extends React.Component {
                 </div>
                 </Toolbar>
             </AppBar>
-            <Menu open={this.state.menuOpen} toggleDrawer={()=> this.toggleMenu()}/>
+            <Menu open={this.state.menuOpen} systemId={this.props.systemId} toggleDrawer={()=> this.toggleMenu()}/>
             </div>
         );
     }

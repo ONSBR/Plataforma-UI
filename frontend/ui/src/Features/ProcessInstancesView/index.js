@@ -1,115 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ProcessService from '../../Services/api/process'
-import './style.css'
-import { Button } from '@material-ui/core';
-
+import './components/style.css'
+import ProcessInstanceList from './components/processInstanceList'
+import Header from '../Header'
+import MemoryList from './components/memoryList'
 
 const styles = theme => ({
   root: {
-    width: '55%',
-    margin: 'auto auto',
+    width: '100%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
-  },
-  table: {
-    minWidth: 550,
-  },
+    display:'flex',
+  }
 });
 
 class ProcessInstanceView extends React.Component {
 
     constructor(props){
         super(props)
-        this.service = new ProcessService()
         this.state = {
-            instances : [],
-            page:1,
-            pageSize:10,
+            memory:{}
         }
-
+        this.handleOnClickInstance = this.handleOnClickInstance.bind(this)
     }
 
-    componentDidMount(){
-        this.fetch()
-    }
+    handleOnClickInstance(instance) {
 
-    fetch(){
-        this.service.findInstancesBySystem(this.props.systemId,this.state.page,this.state.pageSize).then(({data})=> {
-            this.setState(s => {
-                s.instances = data
-                return s
-            })
-        })
-    }
-
-    handleNext() {
         this.setState(s => {
-            s.page++
+            s.memory = instance
             return s
         })
-        this.fetch()
-    }
-
-    handlePrevious(){
-        this.setState(s => {
-            s.page--
-            return s
-        })
-        this.fetch()
     }
 
     render() {
         const { classes } = this.props;
-
-  return (
-    <Paper className={classes.root}>
-     <Typography variant="headline" component="h4">
-         &nbsp;Instâncias
-     </Typography>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Evento</TableCell>
-            <TableCell>Início</TableCell>
-            <TableCell>Escopo</TableCell>
-            <TableCell>Cenário</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell> </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {this.state.instances.map(instance => {
-            return (
-              <TableRow key={instance.id}>
-                <TableCell component="th" scope="row">
-                  {instance.origin_event_name}
-                </TableCell>
-                <TableCell>{instance.startExecution}</TableCell>
-                <TableCell>{instance.scope}</TableCell>
-                <TableCell>{instance.baseline}</TableCell>
-                <TableCell><span className={instance.status}>{instance.status}</span></TableCell>
-                <TableCell>memória</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-      <div>
-      <Button disabled={this.state.page <= 1} onClick={()=>this.handlePrevious()}>Anterior</Button>
-      <span>&nbsp;{this.state.page}&nbsp;</span>
-      <Button onClick={()=>this.handleNext()}>Próximo</Button>
-      </div>
-    </Paper>
-  );
+        return (
+            <div>
+            <Header systemId={this.props.systemId} />
+            <div className={classes.root}>
+                <div className="col">
+                    <ProcessInstanceList systemId={this.props.match.params.id} onClickHandler={(instance)=> this.handleOnClickInstance(instance) }/>
+                </div>
+                <div className="col">
+                    <Paper className="memory">
+                    <Typography variant="headline" component="h4">
+                        &nbsp;Memória
+                    </Typography>
+                    <MemoryList memory={this.state.memory}/>
+                    </Paper>
+                </div>
+            </div>
+            </div>
+        );
     }
 }
 ProcessInstanceView.propTypes = {

@@ -9,3 +9,12 @@
 .reprocessing_pending_approval{
     color: orange
 }
+
+.flex-grid {
+    display: flex;
+    width: 100%
+}
+.col {
+    flex: 1;
+    margin:20px;
+}
