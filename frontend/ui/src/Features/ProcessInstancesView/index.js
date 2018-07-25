@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import './components/style.css'
 import ProcessInstanceList from './components/processInstanceList'
 import Header from '../Header'
 import MemoryList from './components/memoryList'

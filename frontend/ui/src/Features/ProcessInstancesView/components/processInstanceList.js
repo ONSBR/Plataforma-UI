@@ -9,7 +9,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ProcessService from '../../../Services/api/process'
-import './style.css'
 import { Button, Icon } from '@material-ui/core';
 
 

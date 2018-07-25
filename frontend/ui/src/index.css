@@ -5,9 +5,36 @@ body {
   background-color: #eee
 }
 
+.finished {
+    color:green !important;
+}
+
+.failure, .aborted_split_events_failure,  {
+    color:red !important;
+}
+
+.reprocessing_pending_approval{
+    color: orange !important;
+}
+
+.approved{
+    color: lightgreen !important;
+}
+
+.skipped {
+    color: lightsalmon !important;
+}
 
 .clickable{
-    cursor: pointer;
+    cursor: pointer !important;
+}
+
+.running_without_lock {
+    color: greenyellow !important;
+}
+
+.running {
+    color: darkolivegreen !important;
 }
 
 .col {

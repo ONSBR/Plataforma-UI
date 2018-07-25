@@ -75,7 +75,7 @@ class ReprocessingList extends React.Component {
                     return (
                     <TableRow key={rep.id}>
                         <TableCell>{rep.origin.name} - {rep.origin.scope} </TableCell>
-                        <TableCell>{rep.status}</TableCell>
+                        <TableCell className={rep.status}>{rep.status}</TableCell>
                         <TableCell><Icon className="clickable" onClick={()=> this.props.onDetailHandler(rep)}>details</Icon></TableCell>
                         {this.renderActionButton(rep,'check')}
                         {this.renderActionButton(rep,'not_interested')}
