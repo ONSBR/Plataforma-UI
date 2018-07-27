@@ -1,7 +1,11 @@
 package services
 
 import (
+	"fmt"
+
 	"github.com/ONSBR/Plataforma-Deployer/sdk/apicore"
+	"github.com/ONSBR/Plataforma-UI/etc"
+	"github.com/labstack/gommon/log"
 )
 
 type AppsService struct {
@@ -33,6 +37,31 @@ func (plat *AppsService) FindallOperations(processId string, page, pageSize int)
 		return nil, err
 	}
 	return result, nil
+}
+
+func (plat *AppsService) FixUpOperations(originOperationID string, destOperationIDs []string) error {
+	list := make([]etc.JSON, 0)
+	err := apicore.FindByID("operation", originOperationID, &list)
+	if err != nil {
+		log.Error(err)
+		return err
+	}
+	if len(list) == 0 {
+		return fmt.Errorf("operation %s not found", originOperationID)
+	}
+	image := list[0].GetString("image")
+	listUpdate := make([]map[string]interface{}, len(destOperationIDs))
+	for i := 0; i < len(listUpdate); i++ {
+		listUpdate[i] = make(map[string]interface{})
+		_metadata := make(map[string]interface{})
+		_metadata["changeTrack"] = "update"
+		_metadata["type"] = "operation"
+		listUpdate[i]["_metadata"] = _metadata
+		listUpdate[i]["id"] = destOperationIDs[i]
+		listUpdate[i]["image"] = image
+	}
+	return apicore.Persist(listUpdate)
+
 }
 
 func NewAppsService() *AppsService {

@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import SendEvent from './sendEvent'
 import AppVersions from './appVersions'
-
+import Fixup from './fixup'
 
 function TabContainer({ children, dir }) {
   return (
@@ -57,12 +57,14 @@ class AppDetails extends React.Component {
           >
             <Tab label="Evento" />
             <Tab label="Versões" />
+            <Tab label="Fixup de Imagens" />
             <Tab label="Deploys" />
           </Tabs>
         </AppBar>
         {value === 0 ? <TabContainer dir={theme.direction}><SendEvent handleSendEvent={(body)=> handleSendEvent(body)}/></TabContainer>
           : value === 1 ?  <TabContainer dir={theme.direction}><AppVersions processId={app.id} /></TabContainer>
-          : <TabContainer dir={theme.direction}>Item Three</TabContainer>
+          : value === 2 ? <TabContainer dir={theme.direction}><Fixup processId={app.id} /></TabContainer>
+          : <TabContainer dir={theme.direction}>Item 4</TabContainer>
         }
       </div>
     );

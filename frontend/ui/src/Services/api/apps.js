@@ -14,6 +14,10 @@ class AppsService extends ApiService {
         return Axios.get(this.url("apps/operations",{ processId, page, pageSize}))
     }
 
+    fixup(origin, destiny) {
+        return Axios.post(this.url("apps/operations/fixup"),{origin, destiny})
+    }
+
 }
 
 export default AppsService

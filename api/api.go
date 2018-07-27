@@ -17,14 +17,20 @@ func InitAPI() {
 	e.Static("/", "./build")
 	g := e.Group("v1.0.0")
 	g.GET("/system", resources.FindAllSystem)
+
 	g.GET("/platform/islocked", resources.PlatformIsLocked)
+
 	g.GET("/process/instances", resources.FindallProcessInstance)
 	g.GET("/process/history", resources.GetInstanceHistory)
-	g.GET("/reprocessing/findall", resources.FindallReprocessing)
+
+	g.POST("/apps/operations/fixup", resources.FixUpOperations)
 	g.GET("/apps/operations", resources.FindallOperations)
 	g.GET("/apps", resources.FindallApps)
+
+	g.GET("/reprocessing/findall", resources.FindallReprocessing)
 	g.POST("/reprocessing/approve", resources.ApproveReprocessing)
 	g.POST("/reprocessing/skip", resources.SkipReprocessing)
+
 	// Start server
 	e.Logger.Fatal(e.Start(":8384"))
 }
