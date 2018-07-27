@@ -4,13 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
-    area:{
-        margin:'auto auto',
-        textAlign:'center',
-    }
-  });
-
 
 class SendEvent extends React.Component {
     constructor(props){
@@ -31,7 +24,7 @@ class SendEvent extends React.Component {
         var {body} = this.state
         return (
             <div>
-                <div className={classes.area}>
+                <div>
                     <textarea rows="25" cols="100" onKeyUp={(e)=>this.handleArea(e)}></textarea>
                 </div>
                 <IconButton aria-label="Share" onClick={()=>handleSendEvent(body)}>
@@ -46,4 +39,4 @@ SendEvent.propTypes = {
     classes: PropTypes.object.isRequired,
   };
 
-  export default withStyles(styles)(SendEvent);
+  export default SendEvent;

@@ -21,6 +21,7 @@ func InitAPI() {
 	g.GET("/process/instances", resources.FindallProcessInstance)
 	g.GET("/process/history", resources.GetInstanceHistory)
 	g.GET("/reprocessing/findall", resources.FindallReprocessing)
+	g.GET("/apps/operations", resources.FindallOperations)
 	g.GET("/apps", resources.FindallApps)
 	g.POST("/reprocessing/approve", resources.ApproveReprocessing)
 	g.POST("/reprocessing/skip", resources.SkipReprocessing)

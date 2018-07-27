@@ -8,15 +8,13 @@ import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
-import SendIcon from '@material-ui/icons/Send';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AppDetail from './appDetail'
 const styles = theme => ({
   card: {
-    maxWidth: 900,
-    minWidth: 900,
+    maxWidth: '70%',
+    minWidth: '70%',
   },
   actions: {
     display: 'flex',
@@ -87,7 +85,7 @@ class AppCard extends React.Component {
           />
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <AppDetail handleSendEvent={(body)=> this.handleSendEvent(body)}/>
+              <AppDetail handleSendEvent={(body)=> this.handleSendEvent(body)} app={app}/>
             </CardContent>
           </Collapse>
         </Card>

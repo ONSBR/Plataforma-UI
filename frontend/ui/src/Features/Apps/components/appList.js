@@ -3,7 +3,7 @@ import AppService from '../../../Services/api/apps'
 import AppCard from './appCard'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+
 
 
 const styles = theme => ({
@@ -11,7 +11,7 @@ const styles = theme => ({
       flexGrow: 1,
       margin:'auto auto',
       marginTop:30,
-      width:'85%',
+      width:'95%',
 
     },
 
@@ -51,13 +51,12 @@ class AppList extends React.Component {
         var {apps,classes} = this.state
         return (
             <div className={classes.root}>
-                <Grid container spacing={8}>
                     {apps.map(app => (
-                        <Grid item xs>
-                            <AppCard app={app} />
-                        </Grid>
+                        <div>
+                        <AppCard app={app} />
+                        <br/>
+                        </div>
                     ))}
-                </Grid>
             </div>
         )
     }

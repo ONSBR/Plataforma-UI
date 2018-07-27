@@ -8,7 +8,10 @@ class AppsService extends ApiService {
 
     findAll(systemId){
         return Axios.get(this.url("apps",{ systemId}))
+    }
 
+    findAllOperations(processId,page,pageSize){
+        return Axios.get(this.url("apps/operations",{ processId, page, pageSize}))
     }
 
 }
