@@ -9,7 +9,11 @@ body {
     color:green !important;
 }
 
-.failure, .aborted_split_events_failure,  {
+.failure  {
+    color:red !important;
+}
+
+.aborted_split_events_failure  {
     color:red !important;
 }
 
