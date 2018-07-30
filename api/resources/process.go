@@ -31,3 +31,13 @@ func GetInstanceHistory(c echo.Context) error {
 	}
 	return c.JSON(200, memory)
 }
+
+func FindProcessInstanceById(c echo.Context) error {
+	service := services.NewProcessService()
+	id := c.Param("id")
+	proc, err := service.FindById(id)
+	if err != nil {
+		return err
+	}
+	return c.JSON(200, proc)
+}

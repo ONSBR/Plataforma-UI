@@ -31,7 +31,7 @@ class Menu extends React.Component {
       <div className={classes.list}>
         <List>
             <ListItem onClick={()=> this.props.history.push("/process/"+this.props.systemId)}>Instâncias</ListItem>
-            <ListItem>Reprodução</ListItem>
+            <ListItem onClick={()=> this.props.history.push("/reproduction/"+this.props.systemId)}>Reprodução</ListItem>
             <ListItem onClick={()=> this.props.history.push("/reprocessing/"+this.props.systemId)}>Reprocessamento</ListItem>
             <ListItem>Dashboard</ListItem>
             <ListItem>Emitir Evento</ListItem>

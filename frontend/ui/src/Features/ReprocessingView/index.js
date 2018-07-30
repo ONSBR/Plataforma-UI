@@ -14,6 +14,7 @@ const styles = theme => ({
       marginTop: theme.spacing.unit * 3,
       overflowX: 'auto',
       display:'flex',
+      margin:'auto auto'
     }
   });
 class ReprocessingView extends React.Component {

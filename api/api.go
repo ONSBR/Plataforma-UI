@@ -22,12 +22,14 @@ func InitAPI() {
 
 	g.GET("/process/instances", resources.FindallProcessInstance)
 	g.GET("/process/history", resources.GetInstanceHistory)
+	g.GET("/process/:id", resources.FindProcessInstanceById)
 
 	g.POST("/apps/operations/fixup", resources.FixUpOperations)
 	g.GET("/apps/operations", resources.FindallOperations)
 	g.GET("/apps", resources.FindallApps)
 
 	g.POST("/reproduction/:instanceID", resources.Reproduce)
+	g.GET("/reproduction/findall", resources.FindallReproductions)
 
 	g.GET("/reprocessing/findall", resources.FindallReprocessing)
 	g.POST("/reprocessing/approve", resources.ApproveReprocessing)

@@ -1,6 +1,8 @@
 package services
 
 import (
+	"fmt"
+
 	"github.com/ONSBR/Plataforma-Deployer/sdk/apicore"
 	"github.com/ONSBR/Plataforma-EventManager/sdk"
 )
@@ -43,6 +45,18 @@ func (proc *ProcessService) GetProcessInstance(systemID string, page, pageSize i
 
 func (proc *ProcessService) GetProcessMemory(instanceID string) ([]sdk.Memory, error) {
 	return sdk.GetMemoryHistory(instanceID)
+}
+
+func (proc *ProcessService) FindById(id string) (*ProcessInstance, error) {
+	result := make([]*ProcessInstance, 0)
+	err := apicore.FindByID("processInstance", id, &result)
+	if err != nil {
+		return nil, err
+	}
+	if len(result) == 0 {
+		return nil, fmt.Errorf("process instance not found with id %s", id)
+	}
+	return result[0], nil
 }
 
 func NewProcessService() *ProcessService {
