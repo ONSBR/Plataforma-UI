@@ -12,10 +12,6 @@ import red from '@material-ui/core/colors/red';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AppDetail from './appDetail'
 const styles = theme => ({
-  card: {
-    maxWidth: '70%',
-    minWidth: '70%',
-  },
   actions: {
     display: 'flex',
   },
@@ -63,7 +59,7 @@ class AppCard extends React.Component {
     return (
         <div>
 
-        <Card className={classes.card}>
+        <Card>
           <CardHeader
             avatar={
               <Avatar aria-label={app.name} className={classes.avatar}>
