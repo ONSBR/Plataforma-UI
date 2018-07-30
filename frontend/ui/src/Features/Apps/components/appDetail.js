@@ -61,7 +61,7 @@ class AppDetails extends React.Component {
             <Tab label="Deploys" />
           </Tabs>
         </AppBar>
-        {value === 0 ? <TabContainer dir={theme.direction}><SendEvent handleSendEvent={(body)=> handleSendEvent(body)}/></TabContainer>
+        {value === 0 ? <TabContainer dir={theme.direction}><SendEvent app={app}/></TabContainer>
           : value === 1 ?  <TabContainer dir={theme.direction}><AppVersions processId={app.id} /></TabContainer>
           : value === 2 ? <TabContainer dir={theme.direction}><Fixup processId={app.id} /></TabContainer>
           : <TabContainer dir={theme.direction}>Item 4</TabContainer>
