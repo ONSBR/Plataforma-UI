@@ -8,13 +8,13 @@ import ProcessInstanceList from './components/processInstanceList'
 import Header from '../Header'
 import MemoryList from './components/memoryList'
 import ProcessService from '../../Services/api/process'
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '99%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
-    display:'flex',
   }
 });
 
@@ -110,24 +110,24 @@ class ProcessInstanceView extends React.Component {
         return (
             <div>
             <Header systemId={this.props.match.params.id} />
-            <div className={classes.root}>
-                <div className="col">
+            <Grid container spacing={8} className={classes.root}>
+                <Grid item xs={8}>
                     <ProcessInstanceList systemId={this.props.match.params.id} onClickHandler={(instance)=> this.handleOnClickInstance(instance) }/>
-                </div>
-                <div className="col">
+                </Grid>
+                <Grid item xs={4}>
                     <Paper className="memory">
-                    <Typography variant="headline" component="h4">
-                        &nbsp;Memória
-                    </Typography>
-                    <Typography component="div" style={{ padding: 2 * 3 }}>
-                        &nbsp;Nome do evento: {this.state.instanceSelected.origin_event_name}<br/>
-                        &nbsp;ID da instância: {this.state.instanceSelected.id}<br/>
-                        &nbsp;Status: <span className={this.state.instanceSelected.status} >{this.state.instanceSelected.status}</span>
-                    </Typography>
-                    <MemoryList memories={this.state.memories}/>
+                        <Typography variant="headline" component="h4">
+                            &nbsp;Memória
+                        </Typography>
+                        <Typography component="div" style={{ padding: 2 * 3 }}>
+                            &nbsp;Nome do evento: {this.state.instanceSelected.origin_event_name}<br/>
+                            &nbsp;ID da instância: {this.state.instanceSelected.id}<br/>
+                            &nbsp;Status: <span className={this.state.instanceSelected.status} >{this.state.instanceSelected.status}</span>
+                        </Typography>
+                        <MemoryList memories={this.state.memories}/>
                     </Paper>
-                </div>
-            </div>
+                </Grid>
+            </Grid>
             </div>
         );
     }

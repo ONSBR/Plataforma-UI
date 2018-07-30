@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ProcessService from '../../../Services/api/process'
+import ReproductionService from '../../../Services/api/reproduction'
 import { Button, Icon } from '@material-ui/core';
 
 
@@ -27,11 +28,14 @@ class ProcessInstanceList extends React.Component {
     constructor(props){
         super(props)
         this.service = new ProcessService()
+        this.reproductionService = new ReproductionService()
         this.state = {
             instances : [],
             page:1,
             pageSize:10,
         }
+
+        this.onReproduceHandler = this.onReproduceHandler.bind(this)
 
     }
 
@@ -75,6 +79,12 @@ class ProcessInstanceList extends React.Component {
         this.fetch()
     }
 
+    onReproduceHandler(instance) {
+        this.reproductionService.reproduce(instance.id,"user").then(_=>{
+            this.fetch()
+        })
+    }
+
     render() {
         const { classes } = this.props;
 
@@ -91,7 +101,8 @@ class ProcessInstanceList extends React.Component {
             <TableCell>Escopo</TableCell>
             <TableCell>Cenário</TableCell>
             <TableCell>Status</TableCell>
-            <TableCell> </TableCell>
+            <TableCell>Reproduzir</TableCell>
+            <TableCell>Memória</TableCell>
         </TableRow>
         </TableHead>
         <TableBody>
@@ -105,6 +116,7 @@ class ProcessInstanceList extends React.Component {
                 <TableCell>{instance.scope}</TableCell>
                 <TableCell>{instance.baseline}</TableCell>
                 <TableCell><span className={instance.status}>{instance.status}</span></TableCell>
+                <TableCell>{ instance.scope == "execution" ? <Icon className="clickable" onClick={()=> this.onReproduceHandler(instance)}>replay</Icon> : <span></span>}</TableCell>
                 <TableCell><Icon className="clickable" onClick={()=> this.props.onClickHandler(instance)}>storage</Icon></TableCell>
             </TableRow>
             );

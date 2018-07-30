@@ -27,6 +27,8 @@ func InitAPI() {
 	g.GET("/apps/operations", resources.FindallOperations)
 	g.GET("/apps", resources.FindallApps)
 
+	g.POST("/reproduction/:instanceID", resources.Reproduce)
+
 	g.GET("/reprocessing/findall", resources.FindallReprocessing)
 	g.POST("/reprocessing/approve", resources.ApproveReprocessing)
 	g.POST("/reprocessing/skip", resources.SkipReprocessing)

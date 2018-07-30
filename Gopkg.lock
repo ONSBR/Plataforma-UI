@@ -6,7 +6,8 @@
   name = "github.com/ONSBR/Plataforma-Deployer"
   packages = [
     "env",
-    "sdk/apicore"
+    "sdk/apicore",
+    "sdk/eventmanager"
   ]
   revision = "17720a116028f7bddc9ea1e8335fb9c5cc9db343"
 
@@ -110,6 +111,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "4757bba2a96d0c74a5a4790ea07e7e9b44b84ae58cfb613fa36969ea09299d5a"
+  inputs-digest = "6a48e4144a7439b04a5ab28b0cc39161aeb9f047e3e493998a5201763467dbc2"
   solver-name = "gps-cdcl"
   solver-version = 1
