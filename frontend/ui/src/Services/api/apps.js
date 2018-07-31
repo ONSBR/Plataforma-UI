@@ -18,6 +18,11 @@ class AppsService extends ApiService {
         return Axios.post(this.url("apps/operations/fixup"),{origin, destiny})
     }
 
+
+    sendEvent(event) {
+        return Axios.post(this.url("apps/emitEvent"),event)
+    }
+
 }
 
 export default AppsService

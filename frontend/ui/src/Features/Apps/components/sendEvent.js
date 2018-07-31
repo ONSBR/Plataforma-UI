@@ -29,19 +29,31 @@ class SendEvent extends React.Component {
         })
     }
 
+    isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
 
     handleSendEvent(){
-        console.log("enviar evento para ", this.state.operation.event_in)
         var parsed = this.parse(this.state.body)
-        console.log(parsed)
+        var event = {
+            name:this.state.operation.event_in,
+            payload:parsed,
+        }
+        this.appService.sendEvent(event).then(req => {
+            console.log(req)
+        })
     }
 
     parse(text) {
         var lines = text.split('\n')
         var payload = {}
-        lines.foreach(line => {
+        lines.forEach(line => {
             var parts = line.split('=')
-            payload[parts[0]] = parts[1]
+            if (this.isNumeric(parts[1])) {
+                payload[parts[0]] = parseFloat(parts[1])
+            }else{
+                payload[parts[0]] = parts[1]
+            }
         })
         return payload
     }

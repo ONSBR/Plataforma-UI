@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import Header from '../Header'
-import ProcessInstanceList from '../ProcessInstancesView/components/processInstanceList'
+//import ProcessInstanceList from '../ProcessInstancesView/components/processInstanceList'
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -14,8 +14,6 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <Header systemId={this.state.systemId} />
-                <ProcessInstanceList systemId={this.state.systemId} />
-                <div>Dashboard para o sistema {this.state.systemId}</div>
             </div>
         )
     }

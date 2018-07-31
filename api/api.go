@@ -26,6 +26,7 @@ func InitAPI() {
 
 	g.POST("/apps/operations/fixup", resources.FixUpOperations)
 	g.GET("/apps/operations", resources.FindallOperations)
+	g.POST("/apps/emitEvent", resources.EmitEvent)
 	g.GET("/apps", resources.FindallApps)
 
 	g.POST("/reproduction/:instanceID", resources.Reproduce)

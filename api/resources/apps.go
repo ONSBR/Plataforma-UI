@@ -57,3 +57,13 @@ func FixUpOperations(c echo.Context) error {
 	}
 	return c.JSON(200, H{"message": "images was fixed up"})
 }
+
+func EmitEvent(e echo.Context) error {
+	service := services.NewAppsService()
+	evt := services.Event{}
+	err := e.Bind(&evt)
+	if err != nil {
+		return err
+	}
+	return service.EmitEvent(evt)
+}

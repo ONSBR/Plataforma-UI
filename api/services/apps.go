@@ -3,6 +3,10 @@ package services
 import (
 	"fmt"
 
+	"github.com/ONSBR/Plataforma-EventManager/domain"
+
+	"github.com/ONSBR/Plataforma-Deployer/sdk/eventmanager"
+
 	"github.com/ONSBR/Plataforma-Deployer/sdk/apicore"
 	"github.com/ONSBR/Plataforma-UI/etc"
 	"github.com/labstack/gommon/log"
@@ -62,6 +66,18 @@ func (plat *AppsService) FixUpOperations(originOperationID string, destOperation
 	}
 	return apicore.Persist(listUpdate)
 
+}
+
+type Event struct {
+	Name    string                 `json:"name"`
+	Payload map[string]interface{} `json:"payload"`
+}
+
+func (plat *AppsService) EmitEvent(event Event) error {
+	evt := new(domain.Event)
+	evt.Name = event.Name
+	evt.Payload = event.Payload
+	return eventmanager.Push(evt)
 }
 
 func NewAppsService() *AppsService {
