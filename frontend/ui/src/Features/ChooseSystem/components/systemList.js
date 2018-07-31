@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom'
 const Button = withRouter(({ history }) => (
     <button
       type='button'
-      onClick={() => { history.push('/new-location') }}
+      onClick={() => { history.push('#/new-location') }}
     >
       Click Me!
     </button>
@@ -35,12 +35,13 @@ class SystemList extends React.Component {
         this.selectSystemHandler = this.selectSystemHandler.bind(this)
     }
     selectSystemHandler(system){
-       this.props.history.push("/system/"+system.id)
+       this.props.history.push("/ui/system/"+system.id)
     }
     componentDidMount(){
         this.service.findAll().then(systems => {
+            console.log(systems)
             this.setState(s => {
-                s.systems.push(...systems.data)
+                s.systems = systems.data
                 return s
             })
         })

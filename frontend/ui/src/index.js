@@ -12,12 +12,12 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 ReactDOM.render(
     <Router>
     <div>
-      <Route exact path="/" component={ChooseSystem} />
-      <Route path="/system/:id" component={Dashboard} />
-      <Route path="/apps/:id" component={Apps} />
-      <Route path="/process/:id" component={ProcessInstanceView} />
-      <Route path="/reprocessing/:id" component={ReprocessingView} />
-      <Route path="/reproduction/:id" component={ReproductionView} />
+      <Route exact path="/ui/" component={ChooseSystem} />
+      <Route path="/ui/system/:id" component={Dashboard} />
+      <Route path="/ui/apps/:id" component={Apps} />
+      <Route path="/ui/process/:id" component={ProcessInstanceView} />
+      <Route path="/ui/reprocessing/:id" component={ReprocessingView} />
+      <Route path="/ui/reproduction/:id" component={ReproductionView} />
     </div>
   </Router>,
   document.getElementById('root')

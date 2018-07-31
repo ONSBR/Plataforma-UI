@@ -7,6 +7,8 @@ class SystemService extends ApiService {
     }
 
     findAll(){
+        var url = this.url("system")
+        console.log(url)
         return Axios.get(this.url("system"))
     }
 }
