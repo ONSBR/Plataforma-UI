@@ -12,5 +12,6 @@
 *.out
 
 dist/
+front/
 #frontend
 node_modules/

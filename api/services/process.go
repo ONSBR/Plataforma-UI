@@ -14,7 +14,7 @@ type ProcessInstance struct {
 	StartExecution string `json:"startExecution"`
 	Status         string `json:"status"`
 	OriginEvent    string `json:"origin_event_name"`
-	IsFork         string `json:"isFork"`
+	IsFork         bool   `json:"isFork"`
 	Branch         string `json:"baseline"`
 	Scope          string `json:"scope"`
 }
