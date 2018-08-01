@@ -20,7 +20,7 @@ func (plat *PlatformService) IsLocked(systemID string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	return resp.Status == 200, nil
+	return resp.Status != 200, nil
 }
 
 func NewPlatformService() *PlatformService {
