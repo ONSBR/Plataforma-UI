@@ -11,7 +11,7 @@ const styles = theme => ({
     root: {
       margin:'auto auto',
       marginTop:30,
-      width:'50%',
+      width:'90%',
     },
 
   });
