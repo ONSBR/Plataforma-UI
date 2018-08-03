@@ -18,7 +18,7 @@ func (plat *PlatformService) IsLocked(systemID string) (bool, error) {
 	url := fmt.Sprintf("%s://%s:%s/v1.0.0/gateway/%s/proceed", scheme, host, port, systemID)
 	resp, err := http.Get(url)
 	if err != nil {
-		return false, err
+		return true, err
 	}
 	return resp.Status != 200, nil
 }

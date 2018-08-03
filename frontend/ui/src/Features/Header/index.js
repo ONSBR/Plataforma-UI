@@ -44,12 +44,10 @@ class  Header extends React.Component {
     componentDidMount(){
         this.intervalId = setInterval(()=>{
             this.platformService.isLocked(this.state.systemId).then(({data}) => {
-                if (data.locked) {
-                    this.setState(s => {
-                        s.isLocked = data.locked
-                        return s
-                    })
-                }
+                this.setState(s => {
+                    s.isLocked = data.locked
+                    return s
+                })
             })
         },5000)
     }
@@ -78,8 +76,8 @@ class  Header extends React.Component {
                     Plataforma
                 </Typography>
                 <div>
-                    <IconButton color={this.props.isLocked ? "error":"inherit"} aria-label="lock">
-                        <Icon>{this.props.isLocked ? "lock":"lock_open"}</Icon>
+                    <IconButton color={this.state.isLocked ? "error":"inherit"} aria-label="lock">
+                        <Icon>{this.state.isLocked ? "lock":"lock_open"}</Icon>
                     </IconButton>
                     <IconButton color="inherit" aria-label="notifications">
                         <Icon>notifications</Icon>
