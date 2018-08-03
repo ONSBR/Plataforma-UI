@@ -79,12 +79,6 @@ class  Header extends React.Component {
                     <IconButton color={this.state.isLocked ? "error":"inherit"} aria-label="lock">
                         <Icon>{this.state.isLocked ? "lock":"lock_open"}</Icon>
                     </IconButton>
-                    <IconButton color="inherit" aria-label="notifications">
-                        <Icon>notifications</Icon>
-                    </IconButton>
-                    <IconButton color="inherit" aria-label="reprocessing">
-                        <Icon>autorenew</Icon>
-                    </IconButton>
                 </div>
                 </Toolbar>
             </AppBar>
