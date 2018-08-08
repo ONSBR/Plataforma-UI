@@ -62,7 +62,7 @@ class EventList extends React.Component {
     return (
         <div className={classes.root}>
         <List>
-            {events.map(event => (
+            {events.reverse().map(event => (
                 <ListItem>
                     {this.renderIcon(event)}
                     <ListItemText primary={event.name} secondary={"escopo="+event.scope + " cenário=" + event.branch} />
