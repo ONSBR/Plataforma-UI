@@ -80,6 +80,10 @@ func (plat *AppsService) EmitEvent(event Event) error {
 	return eventmanager.Push(evt)
 }
 
+func (plat *AppsService) LastEvents(field, value, last string) ([]*domain.Event, error) {
+	return eventmanager.LastEvents(field, value, last)
+}
+
 func NewAppsService() *AppsService {
 	return new(AppsService)
 }

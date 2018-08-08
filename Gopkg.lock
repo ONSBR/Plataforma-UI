@@ -9,7 +9,7 @@
     "sdk/apicore",
     "sdk/eventmanager"
   ]
-  revision = "17720a116028f7bddc9ea1e8335fb9c5cc9db343"
+  revision = "c8d520715f8c339e5fbb20b38eaa75bc405f9bd9"
 
 [[projects]]
   branch = "master"

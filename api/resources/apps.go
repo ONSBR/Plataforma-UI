@@ -67,3 +67,15 @@ func EmitEvent(e echo.Context) error {
 	}
 	return service.EmitEvent(evt)
 }
+
+func LastEvents(e echo.Context) error {
+	service := services.NewAppsService()
+	field := e.QueryParam("field")
+	value := e.QueryParam("value")
+	last := e.QueryParam("last")
+	events, err := service.LastEvents(field, value, last)
+	if err != nil {
+		return err
+	}
+	return e.JSON(200, events)
+}

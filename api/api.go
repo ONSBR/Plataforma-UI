@@ -10,7 +10,7 @@ func InitAPI() {
 	e := echo.New()
 
 	// Middleware
-	e.Use(middleware.Logger())
+	//e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
 	// Routes
@@ -27,6 +27,7 @@ func InitAPI() {
 	g.POST("/apps/operations/fixup", resources.FixUpOperations)
 	g.GET("/apps/operations", resources.FindallOperations)
 	g.POST("/apps/emitEvent", resources.EmitEvent)
+	g.GET("/apps/events", resources.LastEvents)
 	g.GET("/apps", resources.FindallApps)
 
 	g.POST("/reproduction/:instanceID", resources.Reproduce)

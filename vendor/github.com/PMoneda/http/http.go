@@ -79,7 +79,6 @@ func httpRequest(method, url string, body interface{}, headers ...Header) (*HTTP
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println(string(j))
 		reqBody = string(j)
 	}
 	req, err := http.NewRequest(method, url, strings.NewReader(reqBody))

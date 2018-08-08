@@ -23,6 +23,10 @@ class AppsService extends ApiService {
         return Axios.post(this.url("apps/emitEvent"),event)
     }
 
+    events(field,value,last) {
+        return Axios.get(this.url("apps/events",{field,value,last}))
+    }
+
 }
 
 export default AppsService
