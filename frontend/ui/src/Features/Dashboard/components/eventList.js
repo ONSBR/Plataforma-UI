@@ -16,7 +16,7 @@ const styles = theme => ({
     maxWidth: 760,
     backgroundColor: theme.palette.background.paper,
     maxHeight:560,
-    overflowY:'scroll',
+    overflowY:'auto',
     overflowX: 'hidden',
   },
 

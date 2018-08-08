@@ -126,6 +126,9 @@ class LastEvents extends React.Component {
                     className={classes.chip}
                 />
                 </Typography>
+                <Typography component="p">
+                  Filtro: {this.state.last}
+                </Typography>
                 <EventList events={this.state.events}/>
             </Paper>
             </div>

@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom'
 import Header from '../Header'
 import LastEvents from './components/lastEvents'
-
+import QueuePanel from './components/queuePanel'
 
 const styles = theme => ({
     root: {
@@ -33,6 +33,9 @@ class Dashboard extends React.Component {
                     <Grid container className={classes.demo} justify="center" spacing={16}>
                         <Grid key={1} item>
                             <LastEvents/>
+                        </Grid>
+                        <Grid key={2} item>
+                            <QueuePanel systemId={this.state.systemId}/>
                         </Grid>
                     </Grid>
                     </Grid>

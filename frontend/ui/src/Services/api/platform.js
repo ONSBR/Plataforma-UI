@@ -9,6 +9,10 @@ class PlatformService extends ApiService {
     isLocked(systemId){
         return Axios.get(this.url("platform/islocked",{"systemId":systemId}))
     }
+
+    getQueuesStatus(){
+        return Axios.get(this.url("platform/queues"))
+    }
 }
 
 export default PlatformService
