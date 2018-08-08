@@ -33,7 +33,13 @@ class ReprocessingDetail extends React.Component {
 
     }
     renderObject(payload) {
+        if (payload === null || payload === undefined){
+            return
+        }
         return Object.keys(payload).map(k => {
+            if (k === "_metadata"){
+                return
+            }
             return (
             <div>
                 <span>{k}:</span>&nbsp;{this.renderBolder(payload[k])}
@@ -43,9 +49,12 @@ class ReprocessingDetail extends React.Component {
 
     renderBolder(k) {
         const { classes } = this.props;
-        return (
-            <span className={classes.attr}>{k}</span>
-        )
+        if (typeof k !== "object") {
+            return (
+                <span className={classes.attr}>{k}</span>
+           )
+        }
+        return this.renderObject(k)
     }
 
     renderEvent(event) {
