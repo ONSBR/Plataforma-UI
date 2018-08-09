@@ -87,6 +87,7 @@ class AppVersions extends React.Component {
             <TableCell>Evento Out</TableCell>
             <TableCell>Imagem</TableCell>
             <TableCell>Versão</TableCell>
+            <TableCell>Data</TableCell>
         </TableRow>
         </TableHead>
         <TableBody>
@@ -99,6 +100,7 @@ class AppVersions extends React.Component {
                 <TableCell>{instance.event_out}</TableCell>
                 <TableCell>{instance.image}</TableCell>
                 <TableCell>{instance.version}</TableCell>
+                <TableCell>{instance.created}</TableCell>
             </TableRow>
             );
         })}

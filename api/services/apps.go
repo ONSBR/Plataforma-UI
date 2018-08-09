@@ -29,7 +29,7 @@ func (plat *AppsService) FindallOperations(processId string, page, pageSize int)
 	err := apicore.Query(apicore.Filter{
 		Entity:   "operation",
 		Map:      "core",
-		Name:     "byProcessId",
+		Name:     "byProcessIdOrdered",
 		Page:     page,
 		PageSize: pageSize,
 		Params: []apicore.Param{apicore.Param{

@@ -62,7 +62,6 @@ class ReprocessingList extends React.Component {
             <Table className={classes.table}>
                 <TableHead>
                 <TableRow>
-
                     <TableCell>Evento Origem</TableCell>
                     <TableCell>Status</TableCell>
                     <TableCell>Expandir</TableCell>
@@ -74,7 +73,7 @@ class ReprocessingList extends React.Component {
                 {this.state.reprocessing.map(rep => {
                     return (
                     <TableRow key={rep.id}>
-                        <TableCell>{rep.origin.name} - {rep.origin.scope} </TableCell>
+                        <TableCell><span title={rep.id}>{rep.origin.name} - {rep.origin.scope}</span></TableCell>
                         <TableCell className={rep.status}>{rep.status}</TableCell>
                         <TableCell><Icon className="clickable" onClick={()=> this.props.onDetailHandler(rep)}>details</Icon></TableCell>
                         {this.renderActionButton(rep,'check')}

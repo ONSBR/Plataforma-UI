@@ -44,6 +44,7 @@ class Fixup extends React.Component {
         super(props)
         this.state = {
             operations:[],
+            current:{},
             processId:props.processId,
             origin: "",
             selected:"",
@@ -58,8 +59,12 @@ class Fixup extends React.Component {
     fetch(){
         console.log("buscar operações da app ", this.state.processId)
         this.service.findAllOperations(this.state.processId,0,0).then(({data})=>{
-            console.log(data)
             this.setState(s => {
+                if (data.length > 0) {
+                    s.current = data[0]
+                }else{
+                    s.current = {}
+                }
                 s.operations = data;
                 return s
             });
@@ -85,8 +90,8 @@ class Fixup extends React.Component {
     }
 
     handleFixup(){
-        this.service.fixup(this.state.origin,this.state.destiny).then(({data})=>{
-            console.log(data);
+        this.service.fixup(this.state.origin,this.state.destiny).then(()=>{
+            alert("As versões foram reconfiguradas")
         })
     }
 
@@ -98,12 +103,15 @@ class Fixup extends React.Component {
     }
 
     render(){
-        var  {operations} = this.state
+        var  {operations, current} = this.state
         var {classes} = this.props
         return (
             <div>
             <Paper className={classes.root} elevation={1}>
                 <Typography>
+                <b>Deploy mais recente:</b><br/>
+                <b>Imagem:</b>{current.image}<br/>
+                <b>Versão:</b>{current.version}
                 <br/>
                 <FormControl className={classes.formControl}>
                         <InputLabel htmlFor="select-multiple-checkbox">Versão de Origem</InputLabel>
