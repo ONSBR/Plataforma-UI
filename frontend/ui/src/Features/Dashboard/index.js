@@ -6,14 +6,23 @@ import { withRouter } from 'react-router-dom'
 import Header from '../Header'
 import LastEvents from './components/lastEvents'
 import QueuePanel from './components/queuePanel'
+import Paper from '@material-ui/core/Paper';
+import Log from '../Logs/components/log'
 
 const styles = theme => ({
-    root: {
-      flexGrow: 1,
-      marginTop:30
+    container: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(12, 1fr)',
+      gridGap: `${theme.spacing.unit * 3}px`,
     },
-});
-
+    paper: {
+      padding: theme.spacing.unit,
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+      whiteSpace: 'nowrap',
+      marginBottom: theme.spacing.unit,
+    }
+  });
 
 class Dashboard extends React.Component {
     constructor(props) {
@@ -28,19 +37,29 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <Header systemId={this.state.systemId} />
-                <Grid container className={classes.root} spacing={16}>
-                    <Grid item xs={12}>
-                    <Grid container className={classes.demo} justify="center" spacing={16}>
-                        <Grid key={1} item>
+                <div>
+                    <Grid container spacing={24}>
+                        <Grid item xs={8}>
+                            <Log container="event_manager" />
+                        </Grid>
+                        <Grid item xs={4}>
                             <LastEvents/>
                         </Grid>
-                        <Grid key={2} item>
+                        <Grid item xs={8}>
+                            <Log container="maestro" />
+                        </Grid>
+                        <Grid item xs={4}>
                             <QueuePanel systemId={this.state.systemId}/>
                         </Grid>
+                        <Grid item xs={6}>
+                            <Log />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Log container="celery" />
+                        </Grid>
                     </Grid>
-                    </Grid>
-                </Grid>
 
+                </div>
             </div>
         )
     }

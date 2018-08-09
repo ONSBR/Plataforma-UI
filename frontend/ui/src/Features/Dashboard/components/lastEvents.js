@@ -15,6 +15,13 @@ const styles = theme => ({
       paddingTop: theme.spacing.unit * 2,
       paddingBottom: theme.spacing.unit * 2,
     },
+    paper: {
+        padding: theme.spacing.unit,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        whiteSpace: 'nowrap',
+        marginBottom: theme.spacing.unit,
+      },
     chip: {
         margin: theme.spacing.unit,
     },
@@ -68,9 +75,11 @@ class LastEvents extends React.Component {
 
         return (
             <div>
-            <Paper className={classes.root} elevation={1}>
+            <Paper className={classes.paper}>
                 <Typography variant="headline" component="h3">
                 Últimos eventos
+                </Typography>
+                <Typography component="p">
                 <Chip avatar={
                     <Avatar>
                         <TimerIcon />
