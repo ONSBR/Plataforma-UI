@@ -109,8 +109,8 @@ class ProcessInstanceList extends React.Component {
         {this.state.instances.map(instance => {
             return (
             <TableRow key={instance.id}>
-                <TableCell component="th" scope="row">
-                {instance.origin_event_name}
+                <TableCell component="th" scope="row" title={instance.id}>
+                {instance.origin_event_name} - {instance.id}
                 </TableCell>
                 <TableCell>{instance.startExecution}</TableCell>
                 <TableCell>{instance.scope}</TableCell>
