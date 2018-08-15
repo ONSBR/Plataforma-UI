@@ -22,6 +22,10 @@ class ReprocessingService extends ApiService {
         return Axios.post(this.url("reprocessing/skip",{reprocessingId,approver}))
     }
 
+    override(systemId, reprocessingId, status) {
+        return Axios.post(this.url("reprocessing/overrideStatus",{systemId,reprocessingId,status}))
+    }
+
 }
 
 export default ReprocessingService

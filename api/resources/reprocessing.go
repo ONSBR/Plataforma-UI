@@ -34,3 +34,12 @@ func SkipReprocessing(c echo.Context) error {
 	}
 	return c.JSON(200, instances)
 }
+
+func OverrideReprocessingStatus(e echo.Context) error {
+	service := services.NewReprocessingService()
+	err := service.OverrideStatus(e.QueryParam("systemId"), e.QueryParam("reprocessingId"), e.QueryParam("status"))
+	if err != nil {
+		return err
+	}
+	return e.JSON(200, H{"message": "ok"})
+}

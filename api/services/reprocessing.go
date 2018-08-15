@@ -29,6 +29,9 @@ func (rep *ReprocessingService) Approve(reprocessingID, approver string) (map[st
 	url := fmt.Sprintf("%s/reprocessing/%s/approve", rep.getURL(), reprocessingID)
 	result := make(map[string]interface{})
 	resp, err := http.Post(url, map[string]interface{}{"user": approver})
+	if err != nil {
+		return nil, err
+	}
 	if resp.Status != 200 {
 		return nil, fmt.Errorf(string(resp.Body))
 	}
@@ -43,6 +46,9 @@ func (rep *ReprocessingService) Skip(reprocessingID, approver string) (map[strin
 	url := fmt.Sprintf("%s/reprocessing/%s/skip", rep.getURL(), reprocessingID)
 	result := make(map[string]interface{})
 	resp, err := http.Post(url, map[string]interface{}{"user": approver})
+	if err != nil {
+		return nil, err
+	}
 	if resp.Status != 200 {
 		return nil, fmt.Errorf(string(resp.Body))
 	}
@@ -51,6 +57,18 @@ func (rep *ReprocessingService) Skip(reprocessingID, approver string) (map[strin
 		return nil, err
 	}
 	return result, err
+}
+
+func (rep *ReprocessingService) OverrideStatus(systemID, reprocessingID, status string) error {
+	url := fmt.Sprintf("%s/reprocessing/set_status?id=%s&status=%s", rep.getURL(), reprocessingID, status)
+	resp, err := http.Post(url, map[string]interface{}{"systemId": systemID})
+	if err != nil {
+		return err
+	}
+	if resp.Status != 200 {
+		return fmt.Errorf(string(resp.Body))
+	}
+	return nil
 }
 
 func NewReprocessingService() *ReprocessingService {
