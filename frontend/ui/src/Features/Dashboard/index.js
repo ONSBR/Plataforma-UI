@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 import Header from '../Header'
 import LastEvents from './components/lastEvents'
 import QueuePanel from './components/queuePanel'
-import Paper from '@material-ui/core/Paper';
+import ReplayPanel from './components/replayPanel'
 import Log from '../Logs/components/log'
 
 const styles = theme => ({
@@ -43,6 +43,7 @@ class Dashboard extends React.Component {
                             <Log container="event_manager" />
                         </Grid>
                         <Grid item xs={4}>
+                            <ReplayPanel/><br/>
                             <LastEvents/>
                         </Grid>
                         <Grid item xs={8}>

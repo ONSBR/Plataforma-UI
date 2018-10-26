@@ -39,6 +39,9 @@ func InitAPI() {
 	g.POST("/reprocessing/skip", resources.SkipReprocessing)
 	g.POST("/reprocessing/overrideStatus", resources.OverrideReprocessingStatus)
 
+	g.POST("/replay/:systemID/rec", resources.Rec)
+	g.POST("/replay/:systemID/stop", resources.Stop)
+
 	// Start server
 	e.Logger.Fatal(e.Start(":8384"))
 }
