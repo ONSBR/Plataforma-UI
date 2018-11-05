@@ -15,7 +15,7 @@ func InitAPI() {
 
 	// Routes
 	e.Static("/", "./build")
-	g := e.Group("v1.0.0")
+	g := e.Group("v1")
 	g.GET("/system", resources.FindAllSystem)
 
 	g.GET("/platform/islocked", resources.PlatformIsLocked)
@@ -41,7 +41,9 @@ func InitAPI() {
 
 	g.POST("/replay/:systemID/rec", resources.Rec)
 	g.POST("/replay/:systemID/stop", resources.Stop)
-
+	g.GET("/replay/:systemID/tapes", resources.Tapes)
+	g.GET("/replay/:systemID/isrecording", resources.IsRecording)
+	g.GET("/replay/:systemID/download/:id", resources.Download)
 	// Start server
 	e.Logger.Fatal(e.Start(":8384"))
 }

@@ -14,6 +14,22 @@ class ReplayService extends ApiService {
         return Axios.post(this.url(`replay/${systemId}/stop`))
     }
 
+    tapes(systemId) {
+        return Axios.get(this.url(`replay/${systemId}/tapes`))
+    }
+
+    isRecording(systemId) {
+        return Axios.get(this.url(`replay/${systemId}/isrecording`))
+    }
+
+    download(systemId, id) {
+        return Axios.get(this.url(`replay/${systemId}/download/${id}`))
+    }
+
+    downloadURL(systemId,id){
+        return this.url(`replay/${systemId}/download/${id}`)
+    }
+
 }
 
 export default ReplayService

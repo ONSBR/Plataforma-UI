@@ -1,12 +1,11 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/ONSBR/Plataforma-UI/api"
+	"github.com/labstack/gommon/log"
 )
 
 func main() {
-	fmt.Println("hello")
+	log.SetLevel(log.INFO)
 	api.InitAPI()
 }

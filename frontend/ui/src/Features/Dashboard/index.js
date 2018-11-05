@@ -43,20 +43,20 @@ class Dashboard extends React.Component {
                             <Log container="event_manager" />
                         </Grid>
                         <Grid item xs={4}>
-                            <ReplayPanel/><br/>
-                            <LastEvents/>
+                            <ReplayPanel systemId={this.state.systemId}/><br/>
+                            <LastEvents systemId={this.state.systemId}/>
                         </Grid>
                         <Grid item xs={8}>
-                            <Log container="maestro" />
+                            <Log container="maestro" systemId={this.state.systemId} />
                         </Grid>
                         <Grid item xs={4}>
                             <QueuePanel systemId={this.state.systemId}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <Log />
+                            <Log systemId={this.state.systemId}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <Log container="celery" />
+                            <Log container="celery" systemId={this.state.systemId} />
                         </Grid>
                     </Grid>
 

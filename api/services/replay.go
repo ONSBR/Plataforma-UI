@@ -5,6 +5,7 @@ import (
 
 	"github.com/ONSBR/Plataforma-EventManager/infra"
 	"github.com/PMoneda/http"
+	"github.com/labstack/gommon/log"
 )
 
 type ReplayService struct {
@@ -16,7 +17,7 @@ func (rep *ReplayService) Rec(systemID string) (err error) {
 	if err != nil {
 		return
 	}
-	if resp.Status != 200 {
+	if resp.Status != 201 {
 		return fmt.Errorf("cannot start recording a tape for a system %s", systemID)
 	}
 	return
@@ -28,9 +29,44 @@ func (rep *ReplayService) Stop(systemID string) (err error) {
 	if err != nil {
 		return
 	}
-	if resp.Status != 200 {
-		return fmt.Errorf("cannot start recording a tape for a system %s", systemID)
+	if resp.Status == 404 {
+		err = nil
+		return
 	}
+	if resp.Status != 200 {
+		return fmt.Errorf("cannot stop recording a tape for a system %s", systemID)
+	}
+	return
+}
+
+func (rep *ReplayService) Tapes(systemID string) (result []string, err error) {
+	url := fmt.Sprintf("%s/tape/%s/availables", rep.getURL(), systemID)
+	log.Info(url)
+	result = make([]string, 0)
+	err = http.GetJSON(url, &result)
+	if err != nil {
+		return
+	}
+	return
+}
+
+func (rep *ReplayService) Recording(systemID string) (exist bool, err error) {
+	url := fmt.Sprintf("%s/tape/%s/recording", rep.getURL(), systemID)
+	resp, err := http.Get(url)
+	if err != nil {
+		return
+	}
+	exist = resp.Status == 200
+	return
+}
+
+func (rep *ReplayService) Download(systemID, tapeID string) (body []byte, err error) {
+	url := fmt.Sprintf("%s/tape/%s/download/%s", rep.getURL(), systemID, tapeID)
+	resp, err := http.Get(url)
+	if err != nil {
+		return
+	}
+	body = resp.Body
 	return
 }
 
