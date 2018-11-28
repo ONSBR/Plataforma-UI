@@ -86,11 +86,16 @@ class ReplayPanel extends React.Component {
 
     onDeleteClick(tape){
         return ()=>{
+            console.log(tape);
             this.service.delete(tape).then(d => {
+                console.log(d.data)
+                console.log(d.statusText)
                 if (d.status === 400){
                     alert("Não foi possível apagar a fita "+tape);
                 }else{
+                    console.log("C");
                     this.service.tapes(this.state.systemId).then(tapes => {
+                        console.log(tapes.data);
                         this.setState(s => {
                             s.tapes = tapes.data;
                             return s;

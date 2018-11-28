@@ -1,6 +1,8 @@
 package resources
 
 import (
+	"fmt"
+
 	"github.com/ONSBR/Plataforma-UI/api/services"
 	"github.com/labstack/echo"
 )
@@ -31,6 +33,16 @@ func IsRecording(c echo.Context) error {
 		return err
 	}
 	return c.JSON(200, H{"recording": recording})
+}
+
+func Delete(c echo.Context) error {
+	service := services.NewReplayService()
+	tapeID := c.Param("id")
+	err := service.Delete(tapeID)
+	if err != nil {
+		return err
+	}
+	return c.JSON(200, H{"message": fmt.Sprintf("tape %s was deleted", tapeID)})
 }
 
 func Download(c echo.Context) error {
