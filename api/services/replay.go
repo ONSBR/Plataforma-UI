@@ -1,6 +1,7 @@
 package services
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/ONSBR/Plataforma-EventManager/infra"
@@ -65,6 +66,20 @@ func (rep *ReplayService) Delete(tapeID string) (err error) {
 	resp, err := http.Delete(url)
 	if err != nil {
 		return
+	}
+	if resp.Status == 400 {
+		dic := make(map[string]string)
+		err = json.Unmarshal(resp.Body, &dic)
+		if err == nil {
+			msg, exist := dic["message"]
+			if exist {
+				err = fmt.Errorf(msg)
+			} else {
+				err = fmt.Errorf("cannot delete tape %s", tapeID)
+			}
+
+		}
+
 	}
 	return
 }

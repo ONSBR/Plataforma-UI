@@ -2,12 +2,6 @@
 
 
 [[projects]]
-  name = "github.com/Microsoft/go-winio"
-  packages = ["."]
-  revision = "a6d595ae73cf27a1b8fc32930668708f45ce1c85"
-  version = "v0.4.9"
-
-[[projects]]
   branch = "master"
   name = "github.com/ONSBR/Plataforma-Deployer"
   packages = [
@@ -31,67 +25,13 @@
   branch = "master"
   name = "github.com/PMoneda/http"
   packages = ["."]
-  revision = "07abd5e307d947064debbb4f0e945a2aa4087774"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/PMoneda/whaler"
-  packages = ["."]
-  revision = "eb882dbc7c9ec2605efe31553c68800a53cfa68a"
+  revision = "36ba238aea41b4e774ee875a9c6768adf7d3031d"
 
 [[projects]]
   name = "github.com/dgrijalva/jwt-go"
   packages = ["."]
   revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
   version = "v3.2.0"
-
-[[projects]]
-  name = "github.com/docker/distribution"
-  packages = [
-    "digest",
-    "reference"
-  ]
-  revision = "48294d928ced5dd9b378f7fd7c6f5da3ff3f2c89"
-  version = "v2.6.2"
-
-[[projects]]
-  name = "github.com/docker/docker"
-  packages = [
-    "api/types",
-    "api/types/blkiodev",
-    "api/types/container",
-    "api/types/events",
-    "api/types/filters",
-    "api/types/mount",
-    "api/types/network",
-    "api/types/reference",
-    "api/types/registry",
-    "api/types/strslice",
-    "api/types/swarm",
-    "api/types/time",
-    "api/types/versions",
-    "api/types/volume",
-    "client",
-    "pkg/tlsconfig"
-  ]
-  revision = "092cba3727bb9b4a2f0e922cd6c0f93ea270e363"
-  version = "v1.13.1"
-
-[[projects]]
-  name = "github.com/docker/go-connections"
-  packages = [
-    "nat",
-    "sockets",
-    "tlsconfig"
-  ]
-  revision = "3ede32e2033de7505e6500d6c868c2b9ed9f169d"
-  version = "v0.3.0"
-
-[[projects]]
-  name = "github.com/docker/go-units"
-  packages = ["."]
-  revision = "47565b4f722fb6ceae66b95f853feed578a4a51c"
-  version = "v0.3.3"
 
 [[projects]]
   name = "github.com/google/uuid"
@@ -132,12 +72,6 @@
   version = "v0.0.3"
 
 [[projects]]
-  name = "github.com/pkg/errors"
-  packages = ["."]
-  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
-  version = "v0.8.0"
-
-[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "3e01752db0189b9157070a0e1668a620f9a85da2"
@@ -167,17 +101,6 @@
 
 [[projects]]
   branch = "master"
-  name = "golang.org/x/net"
-  packages = [
-    "context",
-    "context/ctxhttp",
-    "internal/socks",
-    "proxy"
-  ]
-  revision = "f9ce57c11b242f0f1599cf25c89d8cb02c45295a"
-
-[[projects]]
-  branch = "master"
   name = "golang.org/x/sys"
   packages = [
     "unix",
@@ -188,6 +111,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "14a60235e1dcaa4f5eaf5c788020cd94357b95bb4d91272ba84fae8e938dc397"
+  inputs-digest = "6a48e4144a7439b04a5ab28b0cc39161aeb9f047e3e493998a5201763467dbc2"
   solver-name = "gps-cdcl"
   solver-version = 1
