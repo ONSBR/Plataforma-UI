@@ -60,6 +60,15 @@ func (rep *ReplayService) Recording(systemID string) (exist bool, err error) {
 	return
 }
 
+func (rep *ReplayService) Delete(tapeID string) (err error) {
+	url := fmt.Sprintf("%s/tape/%s", rep.getURL(), tapeID)
+	resp, err := http.Delete(url)
+	if err != nil {
+		return
+	}
+	return
+}
+
 func (rep *ReplayService) Download(systemID, tapeID string) (body []byte, err error) {
 	url := fmt.Sprintf("%s/tape/%s/download/%s", rep.getURL(), systemID, tapeID)
 	resp, err := http.Get(url)

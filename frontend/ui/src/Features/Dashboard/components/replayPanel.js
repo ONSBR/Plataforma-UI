@@ -52,6 +52,7 @@ class ReplayPanel extends React.Component {
         this.startRecording = this.startRecording.bind(this);
         this.stopRecording  = this.stopRecording.bind(this);
         this.downloadTape = this.downloadTape.bind(this);
+        this.onDeleteClick = this.onDeleteClick.bind(this);
     }
 
 
@@ -75,13 +76,29 @@ class ReplayPanel extends React.Component {
 
     startRecording(){
         this.service.rec(this.state.systemId).then(r => {
-            console.log(r);
             this.setState(s => {
                 s.recording = !s.recording;
                 s.playing = false;
                 return s;
             })
         })
+    }
+
+    onDeleteClick(tape){
+        return ()=>{
+            this.service.delete(tape).then(d => {
+                if (d.status === 400){
+                    alert("Não foi possível apagar a fita "+tape);
+                }else{
+                    this.service.tapes(this.state.systemId).then(tapes => {
+                        this.setState(s => {
+                            s.tapes = tapes.data;
+                            return s;
+                        })
+                    })
+                }
+            });
+        }
     }
 
     stopRecording(){
@@ -126,7 +143,7 @@ class ReplayPanel extends React.Component {
                             <ListItem>
                                 <ListItemText primary={tape}/>
                                 <ListItemIcon>
-                                    <Icon>delete</Icon>
+                                    <Icon onClick={this.onDeleteClick(tape)}>delete</Icon>
                                 </ListItemIcon>
                                 <ListItemIcon>
                                     <a href={this.service.downloadURL(this.state.systemId,tape)} target={"_blank"}><Icon>cloud_download</Icon></a>

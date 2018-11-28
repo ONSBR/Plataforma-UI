@@ -30,6 +30,10 @@ class ReplayService extends ApiService {
         return this.url(`replay/${systemId}/download/${id}`)
     }
 
+    delete(tapeId){
+        return Axios.delete(this.url(`replay/tape/${tapeId}`))
+    }
+
 }
 
 export default ReplayService
