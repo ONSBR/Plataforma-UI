@@ -94,6 +94,18 @@ func (rep *ReplayService) Download(systemID, tapeID string) (body []byte, err er
 	return
 }
 
+func (rep *ReplayService) UploadTape(fileName string) (err error) {
+	url := fmt.Sprintf("%s/tape/upload", rep.getURL())
+	resp, err := http.FileUpload(url, nil, "tape", fileName)
+	if err != nil {
+		return
+	}
+	if resp.Status != 200 {
+		err = fmt.Errorf("%s", string(resp.Body))
+	}
+	return
+}
+
 func (rep *ReplayService) getURL() string {
 	scheme := infra.GetEnv("REPLAY_SCHEME", "http")
 	host := infra.GetEnv("REPLAY_HOST", "localhost")

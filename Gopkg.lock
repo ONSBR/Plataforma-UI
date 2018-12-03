@@ -25,7 +25,7 @@
   branch = "master"
   name = "github.com/PMoneda/http"
   packages = ["."]
-  revision = "36ba238aea41b4e774ee875a9c6768adf7d3031d"
+  revision = "01d4f75b29bd79503ea7acfb94d6c577c16535e9"
 
 [[projects]]
   name = "github.com/dgrijalva/jwt-go"

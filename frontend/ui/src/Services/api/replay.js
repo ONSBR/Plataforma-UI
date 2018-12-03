@@ -34,6 +34,17 @@ class ReplayService extends ApiService {
         return Axios.delete(this.url(`replay/tape/${tapeId}`))
     }
 
+    uploadTape(inputId) {
+        const file = document.getElementById(inputId).files[0]
+        const formData = new FormData();
+        formData.append('file',file)
+        return Axios.post(this.url(`replay/upload`), formData, {
+        headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+        })
+    }
+
 }
 
 export default ReplayService

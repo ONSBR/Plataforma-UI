@@ -1,10 +1,14 @@
 package http
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
+	"mime/multipart"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"testing"
@@ -76,6 +80,45 @@ func doRequest(method, url string, body interface{}, headers ...Header) (*HTTPRe
 		return doRequestMock(method, url, body)
 	}
 	return httpRequest(method, url, body, headers...)
+}
+
+func FileUpload(uri string, params map[string]string, paramName, path string) (*HTTPResponse, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile(paramName, path)
+	if err != nil {
+		return nil, err
+	}
+	_, err = io.Copy(part, file)
+
+	for key, val := range params {
+		_ = writer.WriteField(key, val)
+	}
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequest("POST", uri, body)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+	client := http.DefaultClient
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if response, err := ioutil.ReadAll(resp.Body); err != nil {
+		return nil, err
+	} else if resp.StatusCode >= 300 {
+		return nil, fmt.Errorf("Status %s: response: %s", resp.Status, string(response))
+	} else {
+		return &HTTPResponse{Body: response, Status: resp.StatusCode}, nil
+	}
 }
 
 func httpRequest(method, url string, body interface{}, headers ...Header) (*HTTPResponse, error) {

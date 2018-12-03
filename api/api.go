@@ -39,12 +39,14 @@ func InitAPI() {
 	g.POST("/reprocessing/skip", resources.SkipReprocessing)
 	g.POST("/reprocessing/overrideStatus", resources.OverrideReprocessingStatus)
 
+	g.POST("/replay/upload", resources.UploadTape)
 	g.POST("/replay/:systemID/rec", resources.Rec)
 	g.POST("/replay/:systemID/stop", resources.Stop)
 	g.GET("/replay/:systemID/tapes", resources.Tapes)
 	g.GET("/replay/:systemID/isrecording", resources.IsRecording)
 	g.GET("/replay/:systemID/download/:id", resources.Download)
 	g.DELETE("/replay/tape/:id", resources.Delete)
+
 	// Start server
 	e.Logger.Fatal(e.Start(":8384"))
 }

@@ -131,6 +131,12 @@ class ReplayPanel extends React.Component {
         });
     }
 
+    onUploadFile(id){
+        this.service.uploadTape(id).then(d => {
+            console.log(d.data);
+        });
+    }
+
     render(){
         const {classes} = this.props;
         return (
@@ -140,7 +146,7 @@ class ReplayPanel extends React.Component {
                  Gravações
                  </Typography>
                  {(this.state.recording === true ? <Icon onClick={this.stopRecording} className={classes.gray}>stop</Icon> :  <Icon onClick={this.startRecording} className={classes.red}>lens</Icon>)}
-                 &nbsp;<Icon className={classes.gray}>publish</Icon>
+                 &nbsp;<input type="file" id="tapeUpload" onChange={()=> this.onUploadFile("tapeUpload")}/>
                  <br/>
                  <div className={classes.rootList}>
                     <List>
@@ -158,6 +164,7 @@ class ReplayPanel extends React.Component {
                         ))}
                     </List>
                 </div>
+
             </Paper>
             </div>
         )
