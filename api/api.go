@@ -1,6 +1,9 @@
 package api
 
 import (
+	"fmt"
+
+	"github.com/ONSBR/Plataforma-Deployer/env"
 	"github.com/ONSBR/Plataforma-UI/api/resources"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -40,13 +43,15 @@ func InitAPI() {
 	g.POST("/reprocessing/overrideStatus", resources.OverrideReprocessingStatus)
 
 	g.POST("/replay/upload", resources.UploadTape)
+
 	g.POST("/replay/:systemID/rec", resources.Rec)
 	g.POST("/replay/:systemID/stop", resources.Stop)
 	g.GET("/replay/:systemID/tapes", resources.Tapes)
 	g.GET("/replay/:systemID/isrecording", resources.IsRecording)
+	g.POST("/replay/:systemID/play/:id", resources.Play)
 	g.GET("/replay/:systemID/download/:id", resources.Download)
 	g.DELETE("/replay/tape/:id", resources.Delete)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":8384"))
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", env.Get("PORT", "8384"))))
 }

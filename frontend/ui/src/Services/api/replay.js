@@ -34,6 +34,10 @@ class ReplayService extends ApiService {
         return Axios.delete(this.url(`replay/tape/${tapeId}`))
     }
 
+    play(systemId, tapeId) {
+        return Axios.post(this.url(`replay/${systemId}/play/${tapeId}`))
+    }
+
     uploadTape(inputId) {
         const file = document.getElementById(inputId).files[0]
         const formData = new FormData();

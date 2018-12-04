@@ -94,6 +94,26 @@ func (rep *ReplayService) Download(systemID, tapeID string) (body []byte, err er
 	return
 }
 
+func (rep *ReplayService) Play(systemID, tapeID string) error {
+	url := fmt.Sprintf("%s/tape/%s/play/%s", rep.getURL(), systemID, tapeID)
+	resp, err := http.Post(url, nil)
+	if err != nil {
+		return err
+	}
+	if resp.Status != 200 {
+		m := make(map[string]string)
+		if err := json.Unmarshal(resp.Body, &m); err != nil {
+			return err
+		}
+		message, ok := m["message"]
+		if !ok {
+			return fmt.Errorf("cannot start playing tape")
+		}
+		return fmt.Errorf(message)
+	}
+	return nil
+}
+
 func (rep *ReplayService) UploadTape(fileName string) (err error) {
 	url := fmt.Sprintf("%s/tape/upload", rep.getURL())
 	resp, err := http.FileUpload(url, nil, "tape", fileName)

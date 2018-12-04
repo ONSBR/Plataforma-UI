@@ -96,5 +96,12 @@ func UploadTape(c echo.Context) error {
 }
 
 func Play(c echo.Context) error {
-	return nil
+	service := services.NewReplayService()
+	tapeID := c.Param("id")
+	systemID := c.Param("systemID")
+
+	if err := service.Play(systemID, tapeID); err != nil {
+		return c.JSON(400, H{"message": err.Error()})
+	}
+	return c.JSON(200, H{"message": fmt.Sprintf("start playing tape %s on system %s", tapeID, systemID)})
 }

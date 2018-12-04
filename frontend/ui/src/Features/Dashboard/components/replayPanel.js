@@ -35,6 +35,10 @@ const styles = theme => ({
     rootList:{
         maxHeight:"200px",
         overflow:"auto",
+    },
+
+    clickable:{
+        cursor:'pointer'
     }
 
   });
@@ -53,6 +57,7 @@ class ReplayPanel extends React.Component {
         this.stopRecording  = this.stopRecording.bind(this);
         this.downloadTape = this.downloadTape.bind(this);
         this.onDeleteClick = this.onDeleteClick.bind(this);
+        this.onPlayClick = this.onPlayClick.bind(this);
     }
 
 
@@ -86,21 +91,29 @@ class ReplayPanel extends React.Component {
 
     onDeleteClick(tape){
         return ()=>{
-            console.log(tape);
             this.service.delete(tape).then(d => {
-                console.log(d.data)
-                console.log(d.statusText)
                 if (d.status === 400){
                     alert("Não foi possível apagar a fita "+tape);
                 }else{
-                    console.log("C");
                     this.service.tapes(this.state.systemId).then(tapes => {
-                        console.log(tapes.data);
                         this.setState(s => {
                             s.tapes = tapes.data;
                             return s;
                         })
                     })
+                }
+            });
+        }
+    }
+
+    onPlayClick(tape){
+        return ()=>{
+            console.log(tape);
+            this.service.play(this.state.systemId,tape).then(d => {
+                console.log(d.data)
+                console.log(d.statusText)
+                if (d.status === 400){
+                    alert("Aviso","Iniciar a reprodução da fita"+tape);
                 }
             });
         }
@@ -133,7 +146,12 @@ class ReplayPanel extends React.Component {
 
     onUploadFile(id){
         this.service.uploadTape(id).then(d => {
-            console.log(d.data);
+            this.service.tapes(this.state.systemId).then(tapes => {
+                this.setState(s => {
+                    s.tapes = tapes.data;
+                    return s;
+                })
+            })
         });
     }
 
@@ -146,7 +164,7 @@ class ReplayPanel extends React.Component {
                  Gravações
                  </Typography>
                  {(this.state.recording === true ? <Icon onClick={this.stopRecording} className={classes.gray}>stop</Icon> :  <Icon onClick={this.startRecording} className={classes.red}>lens</Icon>)}
-                 &nbsp;<input type="file" id="tapeUpload" onChange={()=> this.onUploadFile("tapeUpload")}/>
+                 &nbsp;Upload Gravação&nbsp;<input type="file" id="tapeUpload" onChange={()=> this.onUploadFile("tapeUpload")}/>
                  <br/>
                  <div className={classes.rootList}>
                     <List>
@@ -154,7 +172,10 @@ class ReplayPanel extends React.Component {
                             <ListItem>
                                 <ListItemText primary={tape}/>
                                 <ListItemIcon>
-                                    <Icon onClick={this.onDeleteClick(tape)}>delete</Icon>
+                                    <Icon className={classes.clickable} onClick={this.onPlayClick(tape)}>play_arrow</Icon>
+                                </ListItemIcon>
+                                <ListItemIcon>
+                                    <Icon className={classes.clickable} onClick={this.onDeleteClick(tape)}>delete</Icon>
                                 </ListItemIcon>
                                 <ListItemIcon>
                                     <a href={this.service.downloadURL(this.state.systemId,tape)} target={"_blank"}><Icon>cloud_download</Icon></a>
