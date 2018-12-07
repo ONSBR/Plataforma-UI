@@ -50,6 +50,8 @@ class ReplayPanel extends React.Component {
             recording:false,
             playing:false,
             systemId:props.systemId,
+            playingTape:"",
+            playingIcon : "play_arrow",
             tapes:[],
         }
         this.service = new ReplayService()
@@ -82,8 +84,7 @@ class ReplayPanel extends React.Component {
     startRecording(){
         this.service.rec(this.state.systemId).then(r => {
             this.setState(s => {
-                s.recording = !s.recording;
-                s.playing = false;
+                s.recording = true;
                 return s;
             })
         })
@@ -108,12 +109,26 @@ class ReplayPanel extends React.Component {
 
     onPlayClick(tape){
         return ()=>{
-            console.log(tape);
+            if (this.state.playing){
+                alert("A plataforma está reproduzindo a fita selecionada")
+                return
+            }
+            this.setState(s => {
+                s.playing = true;
+                s.playingTape = tape
+                s.playingIcon = "autorenew"
+                return s
+            })
             this.service.play(this.state.systemId,tape).then(d => {
-                console.log(d.data)
-                console.log(d.statusText)
                 if (d.status === 400){
-                    alert("Aviso","Iniciar a reprodução da fita"+tape);
+                    alert("Falha ao iniciar a reprodução da fita"+tape+ " erro("+d.data.message+")");
+                }else{
+                    this.setState(s => {
+                        s.playing = false;
+                        s.playingIcon = "play_arrow"
+                        s.playingTape = ""
+                        return s
+                    })
                 }
             });
         }
@@ -124,7 +139,6 @@ class ReplayPanel extends React.Component {
             if (req.status === 200){
                 this.setState(s => {
                     s.recording = false;
-                    s.playing = false;
                     return s;
                 })
                 this.service.tapes(this.state.systemId).then(tapes => {
@@ -154,7 +168,15 @@ class ReplayPanel extends React.Component {
             })
         });
     }
-
+    actionBottons(){
+        const {classes} = this.props;
+        if (this.state.playing){
+            return ""
+        }
+        return (<div>{(this.state.recording === true ? <Icon onClick={this.stopRecording} className={classes.gray}>stop</Icon> :  <Icon onClick={this.startRecording} className={classes.red}>lens</Icon>)}
+        &nbsp;Upload Gravação&nbsp;<input type="file" id="tapeUpload" onChange={()=> this.onUploadFile("tapeUpload")}/>
+        <br/></div>)
+    }
     render(){
         const {classes} = this.props;
         return (
@@ -163,23 +185,20 @@ class ReplayPanel extends React.Component {
                  <Typography variant="headline" component="h3">
                  Gravações
                  </Typography>
-                 {(this.state.recording === true ? <Icon onClick={this.stopRecording} className={classes.gray}>stop</Icon> :  <Icon onClick={this.startRecording} className={classes.red}>lens</Icon>)}
-                 &nbsp;Upload Gravação&nbsp;<input type="file" id="tapeUpload" onChange={()=> this.onUploadFile("tapeUpload")}/>
-                 <br/>
+                 {this.actionBottons()}
                  <div className={classes.rootList}>
                     <List>
-                        {this.state.tapes.sort().reverse().map(tape => (
+                        {(this.state.playingTape !== "" ? this.state.tapes.filter(x => x === this.state.playingTape) : this.state.tapes.sort().reverse()).map(tape => (
                             <ListItem>
                                 <ListItemText primary={tape}/>
-                                <ListItemIcon>
-                                    <Icon className={classes.clickable} onClick={this.onPlayClick(tape)}>play_arrow</Icon>
-                                </ListItemIcon>
-                                <ListItemIcon>
+                                {this.state.recording ? "" : <ListItemIcon><Icon className={classes.clickable} onClick={this.onPlayClick(tape)}>{this.state.playingIcon}</Icon></ListItemIcon>}
+                                {this.state.playing ? "" : (<div><ListItemIcon>
                                     <Icon className={classes.clickable} onClick={this.onDeleteClick(tape)}>delete</Icon>
                                 </ListItemIcon>
                                 <ListItemIcon>
                                     <a href={this.service.downloadURL(this.state.systemId,tape)} target={"_blank"}><Icon>cloud_download</Icon></a>
-                                </ListItemIcon>
+                                </ListItemIcon></div>)}
+
                             </ListItem>
 
                         ))}
