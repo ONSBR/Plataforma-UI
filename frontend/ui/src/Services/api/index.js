@@ -1,13 +1,13 @@
 class ApiService {
     url(s,queryString){
         if (!queryString){
-            return `/ui/v1.0.0/${s}`
+            return `/ui/v1/${s}`
         }
         var qs = ""
         Object.keys(queryString).forEach(k => {
             qs += `${k}=${queryString[k]}&`
         })
-        return `/ui/v1.0.0/${s}?`+qs
+        return `/ui/v1/${s}?`+qs
     }
 }
 

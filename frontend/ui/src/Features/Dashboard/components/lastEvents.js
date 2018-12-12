@@ -76,7 +76,7 @@ class LastEvents extends React.Component {
         return (
             <div>
             <Paper className={classes.paper}>
-                <Typography variant="headline" component="h3">
+                <Typography variant="headline" component="h3" >
                 Últimos eventos
                 </Typography>
                 <Typography component="p">
